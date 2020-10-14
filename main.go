@@ -17,7 +17,7 @@ import (
 
 const usageStr string = "%s [options] domain_0 alias_0 ... alias_i, ... domain_i alias_0 ... alias_i\n"
 
-func newProxyMux(doms Domains) *proxyMux {
+func newProxyMux(doms domains) *proxyMux {
 	us := doms.Urls()
 	p := new(proxyMux)
 	p.rProxys = make(map[url.URL]*httputil.ReverseProxy, len(us))
@@ -55,10 +55,10 @@ func commaSplit(data []byte, atEOF bool) (advance int, token []byte, err error) 
 	return
 }
 
-func getDomains(arguments []string) (Domains, error) {
+func getDomains(arguments []string) (domains, error) {
 	s := bufio.NewScanner(strings.NewReader(strings.Join(flag.Args(), " ")))
 	s.Split(commaSplit)
-	var doms Domains
+	var doms domains
 	for s.Scan() {
 		args := strings.Fields(s.Text())
 		doms = append(doms, &domain{args[0], args[1:], nil})
@@ -69,9 +69,9 @@ func getDomains(arguments []string) (Domains, error) {
 	return doms, nil
 }
 
-type Domains []*domain
+type domains []*domain
 
-func (doms Domains) check() (err error) {
+func (doms domains) check() (err error) {
 	for _, d := range doms {
 		d.dUrl, err = url.Parse(d.name)
 		if err != nil {
@@ -87,7 +87,7 @@ func (doms Domains) check() (err error) {
 	return nil
 }
 
-func (doms Domains) Urls() (out []*url.URL) {
+func (doms domains) Urls() (out []*url.URL) {
 	for _, d := range doms {
 		out = append(out, d.dUrl)
 	}
@@ -95,7 +95,7 @@ func (doms Domains) Urls() (out []*url.URL) {
 }
 
 // returns each domain
-func (doms Domains) Doms() []string {
+func (doms domains) Doms() []string {
 	var out []string
 	for _, d := range doms {
 		out = append(out, d.name)
@@ -103,7 +103,7 @@ func (doms Domains) Doms() []string {
 	return out
 }
 
-func (doms Domains) All() []string {
+func (doms domains) All() []string {
 	var out []string
 	for _, d := range doms {
 		out = append(out, append(d.alias, d.name)...)
