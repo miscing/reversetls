@@ -17,8 +17,11 @@ import (
 
 const usageStr string = "%s [options] domain_0 alias_0 ... alias_i, ... domain_i alias_0 ... alias_i"
 
-func newProxyMux(doms Domains) (p *proxyMux) {
-	for _, u := range doms.Urls() {
+func newProxyMux(doms Domains) *proxyMux {
+	us := doms.Urls()
+	p := new(proxyMux)
+	p.rProxys = make(map[url.URL]*httputil.ReverseProxy, len(us))
+	for _, u := range us {
 		p.rProxys[*u] = httputil.NewSingleHostReverseProxy(u)
 	}
 	return p
