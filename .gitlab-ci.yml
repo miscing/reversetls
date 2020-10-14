@@ -24,6 +24,8 @@ container:
   image: docker:latest
   stage: build
   only:
+    refs:
+      - branches
     changes:
       - ./main.go
       - ./Dockerfile
