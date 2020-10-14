@@ -23,6 +23,13 @@ stages:
 container:
   image: docker:latest
   stage: build
+  only:
+    changes:
+      - ./main.go
+      - ./Dockerfile
+      - ./go.mod
+      - ./go.sum
+      - ./.gitlab-ci.yml
   script:
     - docker build --tag $CI_REGISTRY_IMAGE/$CI_PROJECT_NAME .
     - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
