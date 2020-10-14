@@ -15,7 +15,7 @@ import (
 	"time"
 )
 
-const usageStr string = "%s [options] domain_0 alias_0 ... alias_i, ... domain_i alias_0 ... alias_i"
+const usageStr string = "%s [options] domain_0 alias_0 ... alias_i, ... domain_i alias_0 ... alias_i\n"
 
 func newProxyMux(doms Domains) *proxyMux {
 	us := doms.Urls()
