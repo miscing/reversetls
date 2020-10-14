@@ -61,7 +61,7 @@ func getDomains(arguments []string) (Domains, error) {
 	var doms Domains
 	for s.Scan() {
 		args := strings.Fields(s.Text())
-		doms = append(doms, &Domain{args[0], args[1:], nil})
+		doms = append(doms, &domain{args[0], args[1:], nil})
 	}
 	if err := doms.check(); err != nil {
 		return nil, err
@@ -69,7 +69,7 @@ func getDomains(arguments []string) (Domains, error) {
 	return doms, nil
 }
 
-type Domains []*Domain
+type Domains []*domain
 
 func (doms Domains) check() (err error) {
 	for _, d := range doms {
@@ -111,7 +111,7 @@ func (doms Domains) All() []string {
 	return out
 }
 
-type Domain struct {
+type domain struct {
 	name  string
 	alias []string
 	dUrl  *url.URL
