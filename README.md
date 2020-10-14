@@ -12,3 +12,7 @@ Use as binary:
 Use with docker image:
  - `docker pull registry.gitlab.com/miscing/reversetls`
  - `docker run registry.gitlab.com/miscing/reversetls [options] domain alias, ...`
+
+## Notes:
+ - Both aliases and domains are checked to be valid url notation.
+ - Gets certificates for both domains and aliases.
