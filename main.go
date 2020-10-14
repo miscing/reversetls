@@ -164,6 +164,6 @@ func main() {
 	defer server.Close()
 
 	go http.ListenAndServe(":80", certManager.HTTPHandler(nil))
-	fmt.Println("proxy up, using domains: ", doms.Doms())
+	fmt.Println("proxy up, using domains: \n", doms.Doms())
 	log.Fatal(server.ListenAndServeTLS("", ""))
 }
