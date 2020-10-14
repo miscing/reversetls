@@ -8,6 +8,7 @@ Pass it a comma separated list of domains. You can pass aliases for a domain as 
 Use as binary:
 
 `reversetls [options] domain_0 alias_0 ... alias_i, ... domain_i alias_0 ... alias_i`
+
 Use with docker image:
  - `docker pull registry.gitlab.com/miscing/reversetls`
  - `docker run registry.gitlab.com/miscing/reversetls [options] domain alias, ...`
